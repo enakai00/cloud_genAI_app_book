@@ -1,16 +1,13 @@
 import Head from "next/head";
-import Header from "components/HomePageTitle";
-import Message from "components/HomePageMessage";
 
-export default function ApplicationMenuPage() {
+export default function HomePage() {
   const element = (
     <>
       <Head>
-        <title>My Application</title>
+        <title>Home Page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <Message />
+      <h1>My First Next.js Application</h1>
     </>
   );
 
