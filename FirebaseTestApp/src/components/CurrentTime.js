@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 export default function CurrentTime() {
-  const [time, setTime] = useState([]);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     setInterval(() => {
