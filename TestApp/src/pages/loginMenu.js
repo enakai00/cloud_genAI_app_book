@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { auth, signInWithGoogle } from "lib/firebase";
 import { signOut } from "firebase/auth";
-
+import CurrentTime from "components/CurrentTime";
 
 export default function HomePageWithGoogleLogin() {
   const [loginUser, setLoginUser] = useState(null);
@@ -21,13 +21,16 @@ export default function HomePageWithGoogleLogin() {
     element = (
       <>
         <h1>Welcome, {loginUser.displayName}!</h1>
+        <h2><CurrentTime /></h2>
 	<button onClick={() => signOut(auth)}>Logout</button>
       </>
     );
   } else {
     element = (
       <>
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <button onClick={signInWithGoogle}>
+          Sign in with Google
+        </button>
       </>
     );
   }

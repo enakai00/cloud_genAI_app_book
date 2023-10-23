@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import CurrentTime from 'components/CurrentTime';
+import CurrentTime from "components/CurrentTime";
 
 export default function CurrentTimePage() {
   const element = (
