@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,
-	 GoogleAuthProvider,
-	 signInWithPopup } from "firebase/auth";
+         GoogleAuthProvider,
+         signInWithPopup } from "firebase/auth";
 import { firebaseConfig } from ".firebase";
 
 try {
