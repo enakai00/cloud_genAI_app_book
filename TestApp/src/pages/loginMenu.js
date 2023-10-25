@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { auth, signInWithGoogle } from "lib/firebase";
 import { signOut } from "firebase/auth";
 
-export default function HomePageWithGoogleLogin() {
+export default function LoginMenuPage() {
   const [loginUser, setLoginUser] = useState(null);
 
   // Register login state change handler
@@ -37,7 +37,7 @@ export default function HomePageWithGoogleLogin() {
   return (
     <>
       <Head>
-        <title>Current Time</title>
+        <title>Login Menu</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {element}
