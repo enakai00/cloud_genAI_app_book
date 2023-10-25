@@ -37,7 +37,7 @@ export default function HomePageWithGoogleLogin() {
   return (
     <>
       <Head>
-        <title>My Application</title>
+        <title>Current Time</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {element}
