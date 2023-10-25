@@ -41,7 +41,7 @@ export default function HomePageWithGoogleLogin() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {element}
-      <h2><Link href="./">Home Page</Link></h2>
+      <h3><Link href="./">Home Page</Link></h3>
     </>
   );
 }

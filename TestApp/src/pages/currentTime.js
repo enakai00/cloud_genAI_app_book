@@ -11,9 +11,7 @@ export default function CurrentTimePage() {
       </Head>
       <h1>Current Time</h1>
       <h2><CurrentTime /></h2>
-      <h2>
-        <Link href="./">Home Page</Link>
-      </h2>
+      <h3><Link href="./">Home Page</Link></h3>
     </>
   );
 

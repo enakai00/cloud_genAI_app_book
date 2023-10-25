@@ -9,8 +9,8 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>My First Next.js Application</h1>
-      <h2><Link href="./currentTime">Current Time</Link></h2>
-      <h2><Link href="./loginMenu">Login Menu</Link></h2>
+      <h3><Link href="./currentTime">Current Time</Link></h3>
+      <h3><Link href="./loginMenu">Login Menu</Link></h3>
     </>
   );
 
