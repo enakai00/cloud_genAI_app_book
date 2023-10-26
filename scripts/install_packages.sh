@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # Adding PROJECT_ID setting to .bashrc
 PROJECT_CMD='export GOOGLE_CLOUD_PROJECT=$(gcloud config list --format="value(core.project)")'
