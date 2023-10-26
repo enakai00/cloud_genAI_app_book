@@ -34,12 +34,17 @@ export default function Wordcount() {
     setButtonDisabled(false);
   }
 
+  const textAreaStyle = {
+    fontSize: "1.1rem",
+    width: "600px",
+    height: "200px",
+  }
+
   const element = (
     <>
       <h2>Word Count</h2>
       <textarea
-        style={{fontSize: "1.1rem", width: "600px", height: "200px"}}
-        value={text}
+        style={textAreaStyle} value={text}
         onChange={(event) => setText(event.target.value)} />
       <br/>
       <button disabled={buttonDisabled} onClick={getCount}>
