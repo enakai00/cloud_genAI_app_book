@@ -16,10 +16,10 @@ echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] \
 https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" \
   | sudo tee /etc/apt/sources.list.d/nodesource.list
 sudo apt-get update
-sudo apt-get install --upgrade -y nodejs git jq postgresql-client 
+sudo apt-get install --upgrade -y nodejs git jq postgresql-client python3-pip
 
 NUM_PACKAGES=$(apt list --installed \
-  | grep -E "(^nodejs/|^git/|^jq/|^postgresql-client/)" | wc -l)
-if [[ $NUM_PACKAGES == 4 ]]; then
+  | grep -E "(^nodejs/|^git/|^jq/|^postgresql-client/|^python3-pip)" | wc -l)
+if [[ $NUM_PACKAGES == 5 ]]; then
   echo "Succeeded."
 fi
