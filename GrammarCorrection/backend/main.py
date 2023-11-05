@@ -3,9 +3,8 @@ import os
 from flask import Flask, request
 from vertexai.preview.language_models import TextGenerationModel
 
-app = Flask(__name__)
-
 generation_model = TextGenerationModel.from_pretrained('text-bison@001')
+app = Flask(__name__)
 
 
 def get_response(prompt, temperature=0.2):
