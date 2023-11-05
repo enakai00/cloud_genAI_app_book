@@ -3,14 +3,9 @@ import os
 from flask import Flask, request
 from vertexai.preview.language_models import TextGenerationModel
 
-generation_model = TextGenerationModel.from_pretrained('text-bison@001')
-
 app = Flask(__name__)
 
-
-@app.route('/')
-def index():
-    return 'GenAI grammar correction service.'
+generation_model = TextGenerationModel.from_pretrained('text-bison@001')
 
 
 def get_response(prompt, temperature=0.2):
@@ -57,7 +52,7 @@ answer:
     return resp, 200
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # PORT is automatically set by Cloud Run service
     port = int(os.environ.get('PORT', 8080))
     debug = int(os.environ.get('DEBUG', 0))
