@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth } from "lib/firebase";
 
-export default function Wordcount() {
+export default function WordCount() {
 
   const [text, setText] = useState("");
   const [count, setCount] = useState({words: 0, chars: 0});

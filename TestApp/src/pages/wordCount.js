@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { auth, signInWithGoogle } from "lib/firebase";
 import { signOut } from "firebase/auth";
-import Wordcount from "components/Wordcount";
+import WordCount from "components/WordCount";
 
 
 export default function WordcountPage() {
@@ -22,7 +22,7 @@ export default function WordcountPage() {
   if (loginUser) {
     element = (
       <>
-        <Wordcount />
+        <WordCount />
         <br/>
 	<button onClick={() => signOut(auth)}>Logout</button>
       </>
