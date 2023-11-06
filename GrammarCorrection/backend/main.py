@@ -49,10 +49,3 @@ answer:
     }
 
     return resp, 200
-
-
-if __name__ == '__main__':
-    # PORT is automatically set by Cloud Run service
-    port = int(os.environ.get('PORT', 8080))
-    debug = int(os.environ.get('DEBUG', 0))
-    app.run(host='0.0.0.0', port=port, debug=debug)
