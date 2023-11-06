@@ -5,8 +5,7 @@ export default function GrammarCorrection() {
 
   const initialText = "I go to school yesterday. I eat apple lunch. I like eat apple.";
   const [text, setText] = useState(initialText);
-  const [corrected, setCorrected] = useState(" ");
-  const [samples, setSamples] = useState("-\n-\n-");
+  const [answer, setAnswer] = useState({corrected: " ", samples: "-\n-\n-"});
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const getAnswer = async () => {
@@ -32,20 +31,21 @@ export default function GrammarCorrection() {
     };
 
     setButtonDisabled(true);
-    setCorrected(" ");
-    setSamples("-\n-\n-");
-
     const data = await callBackend();
-
-    setCorrected(data.corrected);
-    setSamples(data.samples);
+    setAnswer({corrected: data.corrected, samples: data.samples});
     setButtonDisabled(false);
   }
 
+  const textAreaStyle = {
+    fontSize: "1.05rem", width: "640px", height: "200px"
+  };
+  const answerStyle = {
+    fontSize: "1.05rem", whiteSpace: "pre-wrap"
+  };
   const element = (
     <>
       <textarea
-        style={{resize: "none", width: "600px", height: "200px"}}
+        style={textAreaStyle}
         value={text}
         onChange={(event) => setText(event.target.value)} />
       <br/>
@@ -53,9 +53,9 @@ export default function GrammarCorrection() {
         disabled={buttonDisabled}
         onClick={getAnswer}>Correct me!</button>
       <h2>Grammar correction</h2>
-      <div style={{whiteSpace: "pre-wrap"}}>{corrected}</div>
+      <div style={answerStyle}>{answer.corrected}</div>
       <h2>Model sentences</h2>
-      <div style={{whiteSpace: "pre-wrap"}}>{samples}</div>
+      <div style={answerStyle}>{answer.samples}</div>
     </>
   );
 
