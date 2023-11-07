@@ -6,7 +6,7 @@ import { signOut } from "firebase/auth";
 import WordCount from "components/WordCount";
 
 
-export default function WordcountPage() {
+export default function WordCountPage() {
   const [loginUser, setLoginUser] = useState(null);
 
   // Register login state change handler
