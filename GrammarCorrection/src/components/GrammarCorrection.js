@@ -10,6 +10,7 @@ export default function GrammarCorrection() {
 
   const getAnswer = async () => {
     const callBackend = async () => {
+      // Join multiple lines into a single line.
       const inputText = text.replace(/\r?\n/g, " ");
       const apiEndpoint = "/api/correction";
 
