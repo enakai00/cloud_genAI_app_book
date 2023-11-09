@@ -142,8 +142,7 @@ export default function FashionCompliment() {
       if (item.text === "_typing_") {
         elem = (
           <div key={i}>
-            <img src="/loading.gif" alt="loading"
-                 style={loadingStyle} />
+            <img src="/loading.gif" alt="loading" style={loadingStyle} />
           </div>
         );
       } else {
