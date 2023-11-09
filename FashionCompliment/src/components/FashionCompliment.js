@@ -47,6 +47,13 @@ export default function FashionCompliment() {
   }
 
 
+  const blobToBase64 = async (imageBlob) => {
+    const imageDataURL = await new FileReaderEx().readAsDataURL(imageBlob);
+    const imageBase64 = imageDataURL.replace("data:", "").replace(/^.+,/, "");
+    return imageBase64;
+  }
+
+
   // Application main
   const initalMessage = "今日のあなたのファッションは？";
   const fileUploadMessage = "ファイルアップロード";
@@ -90,8 +97,7 @@ export default function FashionCompliment() {
       return data;
     };
 
-    const imageDataURL = await new FileReaderEx().readAsDataURL(imageBlob);
-    const imageBase64 = imageDataURL.replace("data:", "").replace(/^.+,/, "");
+    const imageBase64 = await blobToBase64(imageBlob);	  
     const data = await callBackend(imageBase64);
     return data;
   }
@@ -116,6 +122,16 @@ export default function FashionCompliment() {
     setButtonDisabled(false);
   };
 
+
+  const textStyle = {
+    width: "300px", padding: "10px", marginBottom: "20px",
+    border: "1px solid #333333", borderRadius: "10px",
+  };
+
+  const loadingStyle = {
+    width: "100px", marginLeft: "120px",
+  };
+
   const chatBody = [];
   let i = 0;
   for (const item of chatData) {
@@ -125,16 +141,14 @@ export default function FashionCompliment() {
       let elem;
       if (item.text === "_typing_") {
         elem = (
-          <div key={i} className="typing">
+          <div key={i}>
             <img src="/loading.gif" alt="loading"
-                 style={{ width: "100px", marginLeft: "120px" }} />
+                 style={loadingStyle} />
           </div>
         );
       } else {
         elem = (
-          <div key={i} className="bot"
-               style={{ width: "300px", padding: "10px", marginBottom: "20px",
-                        border: "1px solid #333333", borderRadius: "10px" }}>
+          <div key={i} style={textStyle}>
             {item.text}
           </div>
         );
@@ -145,7 +159,7 @@ export default function FashionCompliment() {
     if (item.user === "image") {
       const imageObjectURL = URL.createObjectURL(item.image);
       const elem = (
-        <div key={i} className="image" align="right">
+        <div key={i} align="right">
           <img src={imageObjectURL} width="200" alt="user provided" />
         </div>
       );
@@ -155,7 +169,7 @@ export default function FashionCompliment() {
 
   if (buttonDisabled === false) {
     const elem = (
-      <div key="fileUpload" className="fileUpload" align="right">
+      <div key="fileUpload" align="right">
         <button onClick={() => inputRef.current.click()}>
           {fileUploadMessage}
         </button>
