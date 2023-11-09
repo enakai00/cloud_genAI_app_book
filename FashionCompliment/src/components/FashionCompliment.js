@@ -12,8 +12,7 @@ export default function FashionCompliment() {
         super[ctx](blob);
       });
     }
-
-    readAsDataURL(blob){
+    readAsDataURL(blob) {
       return this.#readAs(blob, "readAsDataURL");
     }
   }
@@ -33,14 +32,12 @@ export default function FashionCompliment() {
   const resizeImage = async (imageBlob, width) => {
     const context = document.createElement("canvas").getContext("2d");
     const image = await new ImageEx().create(imageBlob);
-
     const heightCurrent = image.naturalHeight;
     const widthCurrent = image.naturalWidth;
     const height = heightCurrent * (width / widthCurrent);
     context.canvas.width = width;
     context.canvas.height = height;
     context.drawImage(image, 0, 0, widthCurrent, heightCurrent, 0, 0, width, height);
-
     return new Promise((resolve) => {
       context.canvas.toBlob(resolve, "image/jpeg", 0.9);
     });
@@ -57,11 +54,9 @@ export default function FashionCompliment() {
   // Application main
   const initalMessage = "今日のあなたのファッションは？";
   const fileUploadMessage = "ファイルアップロード";
-
   const chatDataInit = [
     { "user": "bot", "text": initalMessage }
   ];
-
   const messageEnd = useRef(null);
   const inputRef = useRef(null);
   const [chatData, setChatData] = useState(chatDataInit);
@@ -108,7 +103,7 @@ export default function FashionCompliment() {
 
     const imageBlob = await resizeImage(evt.target.files[0], 500);
 
-    let chatDataNew = chatData.concat();
+    let chatDataNew = chatData.concat(); // clone an array
     chatDataNew.push({"user": "image", "image": imageBlob});
     chatDataNew.push({"user": "bot", "text": "_typing_"});
     setChatData(chatDataNew);
@@ -127,11 +122,7 @@ export default function FashionCompliment() {
     width: "300px", padding: "10px", marginBottom: "20px",
     border: "1px solid #333333", borderRadius: "10px",
   };
-
-  const loadingStyle = {
-    width: "100px", marginLeft: "120px",
-  };
-
+  const loadingStyle = { width: "100px", marginLeft: "120px" };
   const chatBody = [];
   let i = 0;
   for (const item of chatData) {
