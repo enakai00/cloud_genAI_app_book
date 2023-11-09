@@ -126,7 +126,7 @@ export default function FashionCompliment() {
       if (item.text === "_typing_") {
         elem = (
           <div key={i} className="typing">
-            <img src="/images/loading.gif" alt="loading"
+            <img src="/loading.gif" alt="loading"
                  style={{ width: "100px", marginLeft: "120px" }} />
           </div>
         );
@@ -167,10 +167,10 @@ export default function FashionCompliment() {
   }
 
   const element = (
-    <div className="FC-Service">
+    <>
       {chatBody}
       <div ref={messageEnd} />
-    </div>
+    </>
   );
 
   return element;
