@@ -78,7 +78,7 @@ export default function FashionCompliment() {
   });
 
 
-  const getAnswer = async (imageBlob) => {
+  const getMessage = async (imageBlob) => {
     const callBackend = async (imageBase64) => {
       const apiEndpoint = "/api/compliment";
       const token = await auth.currentUser.getIdToken();
@@ -113,7 +113,7 @@ export default function FashionCompliment() {
     chatDataNew.push({"user": "bot", "text": "_typing_"});
     setChatData(chatDataNew);
 
-    const data = await getAnswer(imageBlob);
+    const data = await getMessage(imageBlob);
 
     chatDataNew.pop();
     chatDataNew.push({"user": "bot", "text": data.message});
