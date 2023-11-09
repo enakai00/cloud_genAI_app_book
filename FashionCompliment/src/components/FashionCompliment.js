@@ -167,10 +167,10 @@ export default function FashionCompliment() {
   }
 
   const element = (
-    <>
+    <div style = {{ margin: "10px", width: "600px" }}>
       {chatBody}
       <div ref={messageEnd} />
-    </>
+    </div>
   );
 
   return element;
