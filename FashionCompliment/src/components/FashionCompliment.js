@@ -12,8 +12,7 @@ export default function FashionCompliment() {
         super[ctx](blob);
       });
     }
-
-    readAsDataURL(blob){
+    readAsDataURL(blob) {
       return this.#readAs(blob, "readAsDataURL");
     }
   }
@@ -33,28 +32,31 @@ export default function FashionCompliment() {
   const resizeImage = async (imageBlob, width) => {
     const context = document.createElement("canvas").getContext("2d");
     const image = await new ImageEx().create(imageBlob);
-
     const heightCurrent = image.naturalHeight;
     const widthCurrent = image.naturalWidth;
     const height = heightCurrent * (width / widthCurrent);
     context.canvas.width = width;
     context.canvas.height = height;
     context.drawImage(image, 0, 0, widthCurrent, heightCurrent, 0, 0, width, height);
-
     return new Promise((resolve) => {
       context.canvas.toBlob(resolve, "image/jpeg", 0.9);
     });
   }
 
 
+  const blobToBase64 = async (imageBlob) => {
+    const imageDataURL = await new FileReaderEx().readAsDataURL(imageBlob);
+    const imageBase64 = imageDataURL.replace("data:", "").replace(/^.+,/, "");
+    return imageBase64;
+  }
+
+
   // Application main
   const initalMessage = "今日のあなたのファッションは？";
   const fileUploadMessage = "ファイルアップロード";
-
   const chatDataInit = [
     { "user": "bot", "text": initalMessage }
   ];
-
   const messageEnd = useRef(null);
   const inputRef = useRef(null);
   const [chatData, setChatData] = useState(chatDataInit);
@@ -71,7 +73,7 @@ export default function FashionCompliment() {
   });
 
 
-  const getAnswer = async (imageBlob) => {
+  const getMessage = async (imageBlob) => {
     const callBackend = async (imageBase64) => {
       const apiEndpoint = "/api/compliment";
       const token = await auth.currentUser.getIdToken();
@@ -90,8 +92,7 @@ export default function FashionCompliment() {
       return data;
     };
 
-    const imageDataURL = await new FileReaderEx().readAsDataURL(imageBlob);
-    const imageBase64 = imageDataURL.replace("data:", "").replace(/^.+,/, "");
+    const imageBase64 = await blobToBase64(imageBlob);	  
     const data = await callBackend(imageBase64);
     return data;
   }
@@ -102,12 +103,12 @@ export default function FashionCompliment() {
 
     const imageBlob = await resizeImage(evt.target.files[0], 500);
 
-    let chatDataNew = chatData.concat();
+    let chatDataNew = chatData.concat(); // clone an array
     chatDataNew.push({"user": "image", "image": imageBlob});
     chatDataNew.push({"user": "bot", "text": "_typing_"});
     setChatData(chatDataNew);
 
-    const data = await getAnswer(imageBlob);
+    const data = await getMessage(imageBlob);
 
     chatDataNew.pop();
     chatDataNew.push({"user": "bot", "text": data.message});
@@ -116,6 +117,12 @@ export default function FashionCompliment() {
     setButtonDisabled(false);
   };
 
+
+  const textStyle = {
+    width: "300px", padding: "10px", marginBottom: "20px",
+    border: "1px solid #333333", borderRadius: "10px",
+  };
+  const loadingStyle = { width: "100px", marginLeft: "120px" };
   const chatBody = [];
   let i = 0;
   for (const item of chatData) {
@@ -125,16 +132,13 @@ export default function FashionCompliment() {
       let elem;
       if (item.text === "_typing_") {
         elem = (
-          <div key={i} className="typing">
-            <img src="/images/loading.gif" alt="loading"
-                 style={{ width: "100px", marginLeft: "120px" }} />
+          <div key={i}>
+            <img src="/loading.gif" alt="loading" style={loadingStyle} />
           </div>
         );
       } else {
         elem = (
-          <div key={i} className="bot"
-               style={{ width: "300px", padding: "10px", marginBottom: "20px",
-                        border: "1px solid #333333", borderRadius: "10px" }}>
+          <div key={i} style={textStyle}>
             {item.text}
           </div>
         );
@@ -145,7 +149,7 @@ export default function FashionCompliment() {
     if (item.user === "image") {
       const imageObjectURL = URL.createObjectURL(item.image);
       const elem = (
-        <div key={i} className="image" align="right">
+        <div key={i} align="right">
           <img src={imageObjectURL} width="200" alt="user provided" />
         </div>
       );
@@ -155,7 +159,7 @@ export default function FashionCompliment() {
 
   if (buttonDisabled === false) {
     const elem = (
-      <div key="fileUpload" className="fileUpload" align="right">
+      <div key="fileUpload" align="right">
         <button onClick={() => inputRef.current.click()}>
           {fileUploadMessage}
         </button>
@@ -167,7 +171,7 @@ export default function FashionCompliment() {
   }
 
   const element = (
-    <div className="FC-Service">
+    <div style = {{ margin: "10px", width: "600px" }}>
       {chatBody}
       <div ref={messageEnd} />
     </div>
