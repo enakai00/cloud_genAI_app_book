@@ -1,6 +1,3 @@
-import json
-import os
-import tempfile
 from cloudevents.http import from_http
 from flask import Flask, request
 
