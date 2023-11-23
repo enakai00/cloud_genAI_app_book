@@ -1,4 +1,3 @@
-import json
 import os
 import tempfile
 from cloudevents.http import from_http
@@ -42,15 +41,19 @@ def process_event():
     event_id = event['id']
     bucket_name = event.data['bucket']
     filepath = event.data['name']
-    uid = filepath.split('/')[0]
+    filesize = int(event.data['size'])
+    content_type = event.data['contentType']
     print('{} - Uploaded file: {}'.format(event_id, filepath))
 
     # Check if the file is pdf.
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.get_blob(filepath)
-    if blob is None or blob.content_type != 'application/pdf':
+    if content_type != 'application/pdf':
         print('{} - {} is not a pdf file.'.format(event_id, filepath))
         return ('This is not a pdf file.', 200)
+
+    # Limit the file size <= 10MB
+    if filesize > 1024*1024*10:
+        print('{} - {} is too large.'.format(event_id, filepath))
+        return ('File is too large.', 200)
 
     # Construct a new filename for summary text.
     directory = os.path.dirname(filepath)
@@ -63,6 +66,7 @@ def process_event():
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
             local_filepath = os.path.join(temp_dir, filename)
+
             download_from_gcs(bucket_name, filepath, local_filepath)
             pages = PyPDFLoader(local_filepath).load()
             document = ''

@@ -11,6 +11,7 @@ def process_event():
     event_type = event['type']
     bucket_name = event.data['bucket']
     filepath = event.data['name']
+    filesize = event.data['size']
     content_type = event.data['contentType']
 
     print('Event contents: {}'.format(event))
@@ -18,6 +19,7 @@ def process_event():
     print('Event type: {}'.format(event_type))
     print('Butcket name: {}'.format(bucket_name))
     print('Filepath: {}'.format(filepath))
+    print('File size: {}'.format(filesize))
     print('Content type: {}'.format(content_type))
 
     return ('Succeeded', 200)
