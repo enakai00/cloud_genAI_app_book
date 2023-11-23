@@ -66,7 +66,6 @@ def process_event():
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
             local_filepath = os.path.join(temp_dir, filename)
-
             download_from_gcs(bucket_name, filepath, local_filepath)
             pages = PyPDFLoader(local_filepath).load()
             document = ''
