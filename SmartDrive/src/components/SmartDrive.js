@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { auth } from "lib/firebase";
 import { getStorage, ref, listAll, getBlob, 
-	 uploadBytes, deleteObject } from "firebase/storage";
+         uploadBytes, deleteObject } from "firebase/storage";
 
 export default function SmartDrive() {
 
