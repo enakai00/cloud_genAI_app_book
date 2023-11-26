@@ -8,6 +8,7 @@ from flask import Flask, request
 from google.cloud import storage
 from google.cloud.sql.connector import Connector
 from langchain.document_loaders import PyPDFLoader
+from langchain.embeddings import VertexAIEmbeddings
 from langchain.llms import VertexAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.question_answering import load_qa_chain
@@ -174,13 +175,16 @@ def answer_question():
         source.append({'filename': filename, 'page': page})
         text += content + '\n'
 
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=6000, chunk_overlap=200)
-    qa_chain = load_qa_chain(llm, chain_type='refine')
-    qa_document_chain = AnalyzeDocumentChain(
-        combine_docs_chain=qa_chain, text_splitter=text_splitter)
-    prompt = '{} 日本語で3文程度にまとめて教えてください。'.format(question)
-    answer = qa_document_chain.run(input_document=text, question=prompt)
+    if len(source) == 0:
+        answer = '回答に必要な情報がありませんでした。'
+    else:
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=6000, chunk_overlap=200)
+        qa_chain = load_qa_chain(llm, chain_type='refine')
+        qa_document_chain = AnalyzeDocumentChain(
+            combine_docs_chain=qa_chain, text_splitter=text_splitter)
+        prompt = '{} 日本語で3文程度にまとめて教えてください。'.format(question)
+        answer = qa_document_chain.run(input_document=text, question=prompt)
 
     resp = {
         'answer': answer,
