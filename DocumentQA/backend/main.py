@@ -123,10 +123,8 @@ def process_event():
         print('{} - {} is too large.'.format(event_id, filepath))
         return ('File is too large.', 200)
 
-    directory = os.path.dirname(filepath)
-    filename = os.path.basename(filepath)
-
     # Store embedding vectores
+    filename = os.path.basename(filepath)
     try:
         with tempfile.TemporaryDirectory() as temp_dir:
             local_filepath = os.path.join(temp_dir, filename)
