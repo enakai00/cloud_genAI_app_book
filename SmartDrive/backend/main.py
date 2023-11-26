@@ -92,4 +92,4 @@ def process_event():
             f.write(description)
         upload_to_gcs(bucket_name, new_filepath, tmp_file.name)
 
-    return ('Succeeded', 200)
+    return ('Succeeded.', 200)
