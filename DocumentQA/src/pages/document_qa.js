@@ -24,6 +24,7 @@ export default function DocumentQAPage() {
         <DocumentQA />
         <br/>
         <button onClick={() => signOut(auth)}>Logout</button>
+        <br/><Link href="/">Back to Smart Drive</Link>
       </>
     );
   } else {
@@ -46,7 +47,6 @@ export default function DocumentQAPage() {
       <div style={{ margin: "10px", width: "600px" }}>
         {element}
       </div>
-      <br/><Link href="/">Back to Smart Drive</Link>
     </>
   );
 }
