@@ -27,7 +27,7 @@ export default function DocumentQA() {
 
   const getAnswer = async () => {
     const callBackend = async (question) => {
-      const apiEndpoint = "/api/document_qa";
+      const apiEndpoint = "/api/question";
       const token = await auth.currentUser.getIdToken();
       const uid = auth.currentUser.uid;
       const request = {  
