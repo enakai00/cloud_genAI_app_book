@@ -24,7 +24,7 @@ export default function SmartDrivePage() {
         <SmartDrive />
         <br/>
         <button onClick={() => signOut(auth)}>Logout</button>
-        <br/><Link href="/document_qa">Document QA Service</Link>
+        <br/><Link href="/documentQA">Document QA Service</Link>
       </>
     );
   } else {
