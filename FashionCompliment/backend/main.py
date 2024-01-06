@@ -7,7 +7,7 @@ from vertexai.preview.vision_models import Image
 from vertexai.preview.vision_models import ImageCaptioningModel
 from vertexai.preview.vision_models import ImageQnAModel
 
-generation_model = TextGenerationModel.from_pretrained('text-bison@001')
+generation_model = TextGenerationModel.from_pretrained('text-bison@002')
 image_captioning_model = ImageCaptioningModel.from_pretrained('imagetext@001')
 image_qna_model = ImageQnAModel.from_pretrained('imagetext@001')
 
@@ -55,7 +55,7 @@ def get_compliment_message(image):
     response = generation_model.predict(
         prompt.format(description, items),
         temperature=0.2, max_output_tokens=1024)
-    return response.text
+    return response.text.lstrip()
 
 
 @app.route('/api/compliment', methods=['POST'])
