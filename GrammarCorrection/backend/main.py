@@ -3,14 +3,14 @@ import os
 from flask import Flask, request
 from vertexai.preview.language_models import TextGenerationModel
 
-generation_model = TextGenerationModel.from_pretrained('text-bison@001')
+generation_model = TextGenerationModel.from_pretrained('text-bison@002')
 app = Flask(__name__)
 
 
 def get_response(prompt, temperature=0.2):
     response = generation_model.predict(
          prompt, temperature=temperature, max_output_tokens=1024)
-    return response.text
+    return response.text.lstrip()
 
 
 @app.route('/api/correction', methods=['POST'])
