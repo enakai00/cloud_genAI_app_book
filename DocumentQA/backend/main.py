@@ -136,7 +136,9 @@ def process_event():
         print('Error message: {}'.format(e))
         return ('File is not accessible.', 200)
 
-    page_contents = [page.page_content for page in pages]
+    page_contents = [
+        page.page_content.encode('utf-8').replace(b'\x00', b'').decode('utf-8')
+        for page in pages]
     embedding_vectors = embeddings.embed_documents(page_contents)
     for c, embedding_vector in enumerate(embedding_vectors):
         page = c+1
